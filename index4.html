@@ -24,7 +24,35 @@
             --radius: 15px;
             --wave-height: 150px;
         }
+.cart-item-total {
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 80px;
+    text-align: right;
+}
 
+.cart-total-row {
+    border-top: 2px solid var(--light-gray);
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.cart-total-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.cart-total-label {
+    color: var(--secondary);
+}
+
+.cart-total-amount {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
         /* ===== 2. RESET & BASE STYLES ===== */
         * {
             margin: 0;
@@ -175,8 +203,8 @@
             }
             
             .logo img {
-                width: 120px;
-                height: 120px;
+                width: 50px;
+                height: 50px;
             }
         
         /* ===== 6. NAVIGATION MENU ===== */
@@ -1221,11 +1249,19 @@
             .hero h1 { font-size: 3.5rem; }
             .hero p { font-size: 1.2rem; }
         }
-
         @media (max-width: 768px) {
             .header-content {
-                padding: 10px 0;
+            padding: 10px 0;
             }
+            .logo {
+            font-size: 1.4rem; /* Smaller logo size for mobile */
+            }
+            .logo img {
+            width: 50px; /* Smaller logo image for mobile */
+            height: 50px;
+            margin-right: 5px;
+            }
+        }
             
             nav {
                 position: fixed;
@@ -1316,7 +1352,7 @@
             .footer-links ul li a:before {
                 display: none;
             }
-        }
+       
 
         @media (max-width: 480px) {
             .hero h1 { 
@@ -1656,13 +1692,13 @@
     <div id="cart-modal" class="cart-modal">
         <div class="cart-modal-content">
             <span class="close-btn">&times;</span>
-            <h2>Your Order</h2>
+            <h2>Your Order For your Booking</h2>
             <ul id="cart-items">
                 <!-- Cart items will be dynamically added here -->
             </ul>
             <div class="cart-total">
                 <span>Total:</span>
-                <span id="cart-total-price">R0.00</span>
+                <span id="cart-total-price"></span>
             </div>
             <button class="btn" id="whatsapp-order-btn">
                 <i class="fab fa-whatsapp"></i> Proceed to Order on WhatsApp
@@ -1910,7 +1946,7 @@
     <!-- Confirm Order Modal -->
     <div class="modal" id="confirm-order-modal">
         <div class="modal-content">
-            <h3>Confirm Your Order</h3>
+            <h3>Confirm Your Order for your reservation</h3>
             <p>You have items in your cart. Is this everything you'd like to order for your reservation?</p>
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-primary" id="confirm-order-btn">Yes, This Is My Order</button>
@@ -2039,19 +2075,20 @@
 
 <script>
 // Menu Data with ZAR prices - Consolidated and updated
+// Menu Data with ZAR prices - Consolidated and updated
 const menuItems = [
     // BREAKFAST
     { id: 101, name: "STANDARD", price: 79.00, description: "2-EGGS, 2 RASHERS OF BACON, GRILLED TOMATO & SLICE OF TOAST", category: "breakfast", image: "assets/images/menu/standard.jpg" },
     { id: 102, name: "MINI HUNGRY", price: 74.00, description: "1 EGG, 1 VIENNA, 2 RASHERS OF BACON, GRILLED TOMATO, 1 SLICE OF TOAST", category: "breakfast", image: "assets/images/menu/toastand egg.png" },
     { id: 103, name: "THE WORSO WAY", price: 95.00, description: "2 EGGS, 2 RASHERS OF BACON, 1 VIENNA, GRILLED MUSHROOMS, GRILLED TOMATO, 2 SLICES OF TOAST", category: "breakfast", image: "assets/images/menu/the pies way.jpg" },
-    { id: 104, name: "CHEESE & TOMATO SANDWICH", price: 36.00, description: "Classic sandwich with cheese and tomato", category: "breakfast", image: "assets/images/menu/cheeseandtomatosandwich.jpg" },
-    { id: 105, name: "CHICKEN & MAYO SANDWICH", price: 36.00, description: "Shredded chicken with creamy mayonnaise", category: "breakfast", image: "assets/images/menu/chickenandmayosandwich.jpg" },
-    { id: 106, name: "CHEESE & HAM SANDWICH", price: 36.00, description: "Slices of ham and cheese", category: "breakfast", image: "assets/images/menu/CHEESE & HAM SANDWICH.jpg" },
-    { id: 107, name: "BACON & CHEESE SANDWICH", price: 36.00, description: "Crispy bacon and melted cheese", category: "breakfast", image: "assets/images/menu/BACON & CHEESE SANDWICH.jpg" },
-    { id: 108, name: "BACON & EGG SANDWICH", price: 38.00, description: "Bacon and fried egg combo", category: "breakfast", image: "assets/images/menu/BACON & EGG SANDWICH.jpeg" },
-    { id: 109, name: "CLUB SANDWICH", price: 45.00, description: "Triple-decker with chicken, bacon, lettuce, and tomato", category: "breakfast", image: "assets/images/menu/CLUB SANDWICH.jpg" },
-    { id: 110, name: "FRENCH FRIES", price: 25.00, description: "Crispy golden french fries", category: "breakfast", image: "assets/images/menu/frenchfries.jpg" },
-    
+    { id: 104, name: "BUILD YOUR BREAKFAST", price: 78.00, description: "Choose your items: MUSHROOMS R25, BAKED BEANS R20, SLICED CHEESE R10, FRIED EGG R10, TOASTED BREAD (X2) R7, BREAD ROLL/BUN R6. Please specify your choices on WhatsApp.", category: "breakfast", image: "assets/images/menu/buildyourbreakfast.jpeg" },
+    { id: 105, name: "CHEESE & TOMATO SANDWICH", price: 36.00, description: "Classic sandwich with cheese and tomato", category: "breakfast", image: "assets/images/menu/cheeseandtomatosandwich.jpg" },
+    { id: 106, name: "CHICKEN & MAYO SANDWICH", price: 36.00, description: "Shredded chicken with creamy mayonnaise", category: "breakfast", image: "assets/images/menu/chickenandmayosandwich.jpg" },
+    { id: 107, name: "CHEESE & HAM SANDWICH", price: 36.00, description: "Slices of ham and cheese", category: "breakfast", image: "assets/images/menu/CHEESE & HAM SANDWICH.jpg" },
+    { id: 108, name: "BACON & CHEESE SANDWICH", price: 36.00, description: "Crispy bacon and melted cheese", category: "breakfast", image: "assets/images/menu/BACON & CHEESE SANDWICH.jpg" },
+    { id: 109, name: "BACON & EGG SANDWICH", price: 38.00, description: "Bacon and fried egg combo", category: "breakfast", image: "assets/images/menu/BACON & EGG SANDWICH.jpeg" },
+    { id: 110, name: "CLUB SANDWICH", price: 45.00, description: "Triple-decker with chicken, bacon, lettuce, and tomato", category: "breakfast", image: "assets/images/menu/CLUB SANDWICH.jpg" },
+    { id: 111, name: "FRENCH FRIES", price: 25.00, description: "Crispy golden french fries", category: "breakfast", image: "assets/images/menu/frenchfries.jpg" },
     // BURGERS
     { id: 201, name: "BEEF BURGER", price: 85.00, description: "150g pure beef patty with lettuce, tomato, onion, and sauce", category: "burgers", image: "assets/images/menu/beefburger.jpg" },
     { id: 202, name: "CHEESE BURGER", price: 90.00, description: "Beef patty topped with a slice of melted cheese", category: "burgers", image: "assets/images/menu/Cheeseburger.jpg" },
@@ -2091,9 +2128,14 @@ const galleryImages = [
     "https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
     "https://images.unsplash.com/photo-1572715376701-98568319fd0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
     "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
-    "assets/images/menu/grilling.jpg",
-    "assets/images/menu/baking.jpg",
-    
+    "https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+    "https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+    "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1981&q=80",
+    "https://images.unsplash.com/photo-1563379091339-03246963d96c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+];
+
+// Testimonials Data
+const testimonials = [
     {
         id: 1,
         text: "The best pies I've ever had! The crust is perfectly flaky and the fillings are always flavorful. A must-visit for any pie lover!",
@@ -2108,6 +2150,13 @@ const galleryImages = [
         role: "Regular Customer",
         image: "https://randomuser.me/api/portraits/men/54.jpg"
     },
+    {
+        id: 3,
+        text: "I celebrated my birthday here and it was an unforgettable experience. The staff went above and beyond to make our evening special. Highly recommended!",
+        name: "Emily Rodriguez",
+        role: "First-time Visitor",
+        image: "https://randomuser.me/api/portraits/women/68.jpg"
+    }
 ];
 
 // Cart Data
@@ -2158,95 +2207,50 @@ function updateCartCount() {
 
 function calculateTotal() {
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotalPrice.textContent = formatPrice(total);
+    if (cartTotalPrice) {
+        cartTotalPrice.textContent = formatPrice(total);
+    }
     return total;
 }
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                subject: document.getElementById('subject').value.trim(),
-                message: document.getElementById('message').value.trim()
-            };
-            
-         
-            
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(formData.email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            // Create mailto link
-            const recipient = 'thejabs145@gmail.com';
-            const mailSubject = encodeURIComponent(formData.subject);
-            const mailBody = encodeURIComponent(
-                `Name: ${formData.name}\n` +
-                `Email: ${formData.email}\n\n` +
-                `Message:\n${formData.message}\n\n` +
-                `---\nThis message was sent from the PIES AND GRILLS website contact form.`
-            );
-            
-            // Create mailto URL
-            const mailtoUrl = `mailto:${recipient}?subject=${mailSubject}&body=${mailBody}`;
-            
-            // Open email client
-            window.location.href = mailtoUrl;
-            
-            // Optional: Show confirmation message
-            setTimeout(() => {
-                alert('Your email client should open with a pre-filled message. Please click send to complete your message.');
-            }, 500);
-        });
 
-        // Alternative: Direct mailto link for quick contact
-        function createDirectMailLink() {
-            // This can be used for a simple "Contact Us" button
-            const subject = 'Inquiry from PIES AND GRILLS Website';
-            const body = 'Hello PIES AND GRILLS team,\n\nI would like to get in touch with you regarding...';
-            
-            return `mailto:thejabs145@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
-
-        // Example of adding a quick contact button elsewhere on the site
-        function addQuickContactButton() {
-            const quickContactBtn = document.createElement('a');
-            quickContactBtn.href = createDirectMailLink();
-            quickContactBtn.className = 'btn';
-            quickContactBtn.innerHTML = '<i class="fas fa-envelope"></i> Quick Contact';
-            quickContactBtn.style.marginTop = '10px';
-            
-            // Add to a suitable container on your page
-            // document.getElementById('some-container').appendChild(quickContactBtn);
-        }
 function renderCart() {
     cartItemsList.innerHTML = '';
     if (cart.length === 0) {
         cartItemsList.innerHTML = '<li style="justify-content: center; color: var(--gray);">Your cart is empty. Add some delicious items from the menu!</li>';
-        whatsappOrderBtn.disabled = true;
+        if (whatsappOrderBtn) whatsappOrderBtn.disabled = true;
     } else {
-        whatsappOrderBtn.disabled = false;
+        if (whatsappOrderBtn) whatsappOrderBtn.disabled = false;
         cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
             const li = document.createElement('li');
             li.innerHTML = `
                 <div class="cart-item-info">
                     <span class="cart-item-name">${item.name}</span>
-                    <span class="cart-item-price">${formatPrice(item.price)}</span>
+                    <span class="cart-item-price">${formatPrice(item.price)} each</span>
                 </div>
                 <div class="cart-item-quantity">
                     <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
                     <span>${item.quantity}</span>
                     <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
                 </div>
+                <div class="cart-item-total">
+                    ${formatPrice(itemTotal)}
+                </div>
             `;
             cartItemsList.appendChild(li);
         });
+        
+        // Add total display
+        const totalLi = document.createElement('li');
+        totalLi.className = 'cart-total-row';
+        totalLi.innerHTML = `
+            <div class="cart-total-info">
+                <span class="cart-total-label">Total:</span>
+                <span class="cart-total-amount">${formatPrice(calculateTotal())}</span>
+            </div>
+        `;
+        cartItemsList.appendChild(totalLi);
     }
-    calculateTotal();
 }
 
 function addToCart(itemId) {
@@ -2261,6 +2265,7 @@ function addToCart(itemId) {
     }
     
     updateCartCount();
+    renderCart();
     updateCartDisplayBook();
     
     // Visual feedback for item added
@@ -2311,39 +2316,51 @@ function generateWhatsAppLink() {
 
 // --- Book a Table Functions ---
 
-// Update cart display in book a table section
+// Consolidated function to update booking cart display and all total elements
 function updateCartDisplayBook() {
-    if (!cartItemsListBook) return;
-    
-    cartItemsListBook.innerHTML = '';
-    
+    const bookListEl = document.getElementById('cart-items-list');
+    const totalEls = document.querySelectorAll('#cart-total-price'); // updates every element using this id
+    if (!bookListEl) return;
+
+    bookListEl.innerHTML = '';
+
     if (cart.length === 0) {
-        cartItemsListBook.innerHTML = `
+        bookListEl.innerHTML = `
             <div class="empty-cart-message">
                 <i class="fas fa-shopping-cart"></i>
                 <p>Your cart is empty</p>
             </div>
         `;
-        cartTotalPriceBook.textContent = formatPrice(0);
+        totalEls.forEach(el => el.textContent = formatPrice(0));
         return;
     }
-    
+
     let total = 0;
-    
+
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        
+
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
             <span class="cart-item-name">${item.quantity}x ${item.name}</span>
             <span class="cart-item-price">${formatPrice(itemTotal)}</span>
         `;
-        cartItemsListBook.appendChild(cartItem);
+        bookListEl.appendChild(cartItem);
     });
-    
-    cartTotalPriceBook.textContent = formatPrice(total);
+
+    // Update all total price displays (both modal and booking summary)
+    totalEls.forEach(el => {
+        el.textContent = formatPrice(total);
+    });
+}
+
+// Format date for display
+function formatDate(dateString) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-ZA', options);
 }
 
 // Format date for display
@@ -2392,7 +2409,7 @@ function generateWhatsAppMessage(formData, includeOrder = true) {
 function sendBookingViaWhatsApp(formData, includeOrder = true) {
     const message = generateWhatsAppMessage(formData, includeOrder);
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/27662952264?text=${encodedMessage}`;
     
     window.open(whatsappUrl, '_blank');
 }
@@ -2419,13 +2436,12 @@ function handleBookingFormSubmit(e) {
     // Check if cart is empty
     if (cart.length === 0) {
         // Show empty cart modal
-        emptyCartModal.style.display = 'flex';
+        if (emptyCartModal) emptyCartModal.style.display = 'flex';
     } else {
         // Show confirm order modal
-        confirmOrderModal.style.display = 'flex';
+        if (confirmOrderModal) confirmOrderModal.style.display = 'flex';
     }
 }
-
 // --- Menu Rendering and Filtering Functions ---
 
 function getUniqueCategories() {
@@ -2502,22 +2518,22 @@ function renderMenuItems(filter = 'all') {
 
 // --- Gallery and Testimonials Functions ---
 
-    function renderGallery() {
-        if (!galleryContainer) return;
-        galleryContainer.innerHTML = '';
-        const limitedImages = galleryImages.slice(0, 4); // Limit to 4 images
-        limitedImages.forEach(image => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.innerHTML = `
-                <img src="${image}" alt="Gallery Image">
-                <div class="gallery-overlay">
-                    <i class="fas fa-search-plus"></i>
-                </div>
-            `;
-            galleryContainer.appendChild(galleryItem);
-        });
-    }
+function renderGallery() {
+    if (!galleryContainer) return;
+    galleryContainer.innerHTML = '';
+    // Only show first 6 images
+    galleryImages.slice(0, 6).forEach(image => {
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        galleryItem.innerHTML = `
+            <img src="${image}" alt="Gallery Image">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+        `;
+        galleryContainer.appendChild(galleryItem);
+    });
+}
 
 function renderTestimonials() {
     if (!testimonialSlider || !testimonialNav) return;
@@ -2722,6 +2738,7 @@ function setupEventListeners() {
         });
     }
 
+    // Contact form submission
 // Contact form submission
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -2734,7 +2751,6 @@ if (contactForm) {
         const message = document.getElementById('message').value.trim();
         
         // Basic validation
-       
         
         // Create and open mailto link
         const mailtoUrl = `mailto:thejabs145@gmail.com?subject=${encodeURIComponent('PIES AND GRILLS: ' + subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage: ${message}`)}`;
